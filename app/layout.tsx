@@ -1,31 +1,15 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Inter, Inter_Tight } from 'next/font/google';
+import { Lora } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
-// Italique éditorial pour les accents dans les titres (signature Edmiston)
-const cormorant = Cormorant_Garamond({
+// Famille unique Lora (style Barnes) — sert pour le display caps, le body et les italiques
+const lora = Lora({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-cormorant',
-  display: 'swap',
-});
-
-// Body
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-// Display tight pour les caps en gros (signature Edmiston)
-const interTight = Inter_Tight({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-display',
+  variable: '--font-lora',
   display: 'swap',
 });
 
@@ -49,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${cormorant.variable} ${inter.variable} ${interTight.variable}`}>
+    <html lang="fr" className={lora.variable}>
       <body>
         <Header />
         <main>{children}</main>

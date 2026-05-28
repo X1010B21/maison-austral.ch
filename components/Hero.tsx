@@ -1,16 +1,62 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Force les bonnes propriétés AVANT toute tentative de lecture (iOS Safari)
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    // Older iOS / WebKit
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    const tryPlay = () => {
+      const p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Autoplay bloqué (Low Power Mode iOS ou prefs strictes)
+          // → tente de relancer dès qu'il y a une interaction utilisateur
+          const onInteract = () => {
+            video.play().catch(() => {});
+            window.removeEventListener('touchstart', onInteract);
+            window.removeEventListener('click', onInteract);
+            window.removeEventListener('scroll', onInteract);
+          };
+          window.addEventListener('touchstart', onInteract, { passive: true, once: true });
+          window.addEventListener('click', onInteract, { once: true });
+          window.addEventListener('scroll', onInteract, { passive: true, once: true });
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      tryPlay();
+    } else {
+      video.addEventListener('loadeddata', tryPlay, { once: true });
+    }
+  }, []);
+
   return (
     <section
       id="top"
       className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden bg-ink text-pure"
     >
-      {/* Vidéo de fond */}
       <video
+        ref={videoRef}
         className="absolute inset-0 -z-10 h-full w-full object-cover"
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         poster="/hero-poster.jpg"
       >
         <source src="/hero.mp4" type="video/mp4" />
@@ -25,7 +71,6 @@ export function Hero() {
         }}
       />
 
-      {/* Bloc principal — bas-gauche style Edmiston */}
       <div className="container-austral relative flex-1 flex flex-col justify-end pb-28 pt-40 md:pb-36 md:pt-48">
         <p className="hero-fade text-[11px] uppercase tracking-[0.32em] text-pure/80 md:text-xs">
           Maison Austral &nbsp;—&nbsp; Suisse · Ibérique
@@ -49,7 +94,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Footer hero — méta info éditoriale */}
       <div className="container-austral relative pb-8 md:pb-10">
         <div className="hero-fade hero-delay-3 flex items-end justify-between border-t border-pure/15 pt-6">
           <p className="text-[10px] uppercase tracking-[0.32em] text-pure/60">

@@ -36,14 +36,15 @@
     @apply text-xs uppercase tracking-[0.22em] text-copper font-medium;
   }
 
-  /* Titre principal "Edmiston-mix" — sans-serif caps avec italiques serif intercalés */
+  /* Titre principal — Lora caps avec accents italiques (style Barnes Suisse) */
   .h-display {
-    @apply font-display font-medium uppercase leading-[1.02] tracking-[-0.015em];
+    @apply font-display font-medium uppercase leading-[1.05] tracking-[0.01em];
   }
   .h-display em {
-    @apply font-serif font-light italic normal-case tracking-normal;
-    /* L'italique serif est légèrement plus grand pour compenser visuellement les caps */
-    font-size: 1.08em;
+    @apply font-normal italic normal-case;
+    /* Italique Lora — légèrement plus grand pour compenser visuellement les caps */
+    font-size: 1.06em;
+    letter-spacing: -0.005em;
     line-height: 1;
   }
 
