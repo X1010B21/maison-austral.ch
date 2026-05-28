@@ -41,9 +41,9 @@ export function Hero() {
           </p>
           <h1 className="h-display hero-fade hero-delay-1 mt-6 text-5xl text-pure md:text-7xl lg:text-[5.5rem]">
             Service haut de gamme de{' '}
-            <em className="not-italic text-copper-light">relocation</em> et
-            d&apos;accompagnement immobilier entre la Suisse et la péninsule
-            ibérique.
+            <em className="not-italic text-copper-light">relocation</em>
+            {' '}et d&apos;accompagnement immobilier entre la Suisse et la
+            péninsule ibérique.
           </h1>
 
           <p className="hero-fade hero-delay-2 mt-10 max-w-xl text-base text-pure/75 md:text-lg">
