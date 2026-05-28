@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Logo } from './Logo';
 import { CONTACT_EMAIL, DESTINATIONS, NAV_LINKS } from '@/lib/content';
 
@@ -25,12 +26,12 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-austral ${
+      className={`fixed inset-x-0 top-0 z-50 ease-austral ${
         open
-          ? 'bg-sand-50 shadow-[0_1px_0_rgba(15,27,45,0.06)]'
+          ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)] transition-none'
           : scrolled
-            ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)]'
-            : 'bg-transparent'
+            ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)] transition-all duration-500'
+            : 'bg-transparent transition-all duration-500'
       }`}
     >
       <div className="container-austral flex items-center justify-between py-5 md:py-7">
@@ -148,7 +149,23 @@ export function Header() {
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [destOpen, setDestOpen] = useState(false);
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Reset submenu when drawer closes
+  useEffect(() => {
+    if (!open) {
+      const t = setTimeout(() => setDestOpen(false), 300);
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className={`lg:hidden ${
         open ? 'pointer-events-auto' : 'pointer-events-none'
@@ -256,6 +273,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
