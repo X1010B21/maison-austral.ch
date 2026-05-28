@@ -1,65 +1,101 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+/**
+ * Montage de 3 séquences Pexels (libres de droits, usage commercial OK) :
+ *  1. Cascais — Casa da Guia + Atlantique (Portugal)
+ *  2. Porto — vue aérienne du centre historique
+ *  3. Mallorca — falaises et côte sud
+ *
+ * Pour swap par les images du client : remplacer ces URLs par /public/hero-1.mp4 etc.
+ */
+const SOURCES = [
+  'https://videos.pexels.com/video-files/17480422/17480422-uhd_2560_1440_25fps.mp4',
+  'https://videos.pexels.com/video-files/34286709/14526189_2560_1440_24fps.mp4',
+  'https://videos.pexels.com/video-files/31805420/13550438_2560_1440_30fps.mp4',
+] as const;
 
 export function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // Deux balises vidéo qu'on alterne (A/B) pour un crossfade entre clips
+  const videoA = useRef<HTMLVideoElement>(null);
+  const videoB = useRef<HTMLVideoElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [showA, setShowA] = useState(true);
 
+  // Force les bonnes propriétés iOS + lance la lecture
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Force les bonnes propriétés AVANT toute tentative de lecture (iOS Safari)
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    // Older iOS / WebKit
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-
-    const tryPlay = () => {
-      const p = video.play();
-      if (p && typeof p.catch === 'function') {
-        p.catch(() => {
-          // Autoplay bloqué (Low Power Mode iOS ou prefs strictes)
-          // → tente de relancer dès qu'il y a une interaction utilisateur
-          const onInteract = () => {
-            video.play().catch(() => {});
-            window.removeEventListener('touchstart', onInteract);
-            window.removeEventListener('click', onInteract);
-            window.removeEventListener('scroll', onInteract);
-          };
-          window.addEventListener('touchstart', onInteract, { passive: true, once: true });
-          window.addEventListener('click', onInteract, { once: true });
-          window.addEventListener('scroll', onInteract, { passive: true, once: true });
-        });
-      }
+    const setup = (v: HTMLVideoElement | null) => {
+      if (!v) return;
+      v.muted = true;
+      v.playsInline = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.setAttribute('webkit-playsinline', '');
     };
+    setup(videoA.current);
+    setup(videoB.current);
 
-    if (video.readyState >= 2) {
-      tryPlay();
-    } else {
-      video.addEventListener('loadeddata', tryPlay, { once: true });
-    }
+    const tryPlay = (v: HTMLVideoElement | null) => {
+      v?.play().catch(() => {
+        const onInteract = () => {
+          v?.play().catch(() => {});
+        };
+        window.addEventListener('touchstart', onInteract, { passive: true, once: true });
+        window.addEventListener('click', onInteract, { once: true });
+      });
+    };
+    tryPlay(videoA.current);
+    tryPlay(videoB.current);
   }, []);
+
+  // Quand une vidéo se termine, swap vers l'autre + précharge la suivante
+  const handleEnded = (which: 'A' | 'B') => {
+    const next = (activeIndex + 1) % SOURCES.length;
+    setActiveIndex(next);
+
+    // Précharge la prochaine vidéo dans la balise inactive
+    const target = which === 'A' ? videoB.current : videoA.current;
+    if (target) {
+      target.src = SOURCES[(next + 1) % SOURCES.length];
+      target.load();
+    }
+    setShowA(which === 'B'); // si A vient de finir, B prend la main
+  };
 
   return (
     <section
       id="top"
       className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden bg-ink text-pure"
     >
+      {/* Vidéo A */}
       <video
-        ref={videoRef}
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        ref={videoA}
+        className={`absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-[1200ms] ease-austral ${
+          showA ? 'opacity-100' : 'opacity-0'
+        }`}
         autoPlay
         muted
-        loop
         playsInline
         preload="auto"
-        poster="/hero-poster.jpg"
+        onEnded={() => handleEnded('A')}
       >
-        <source src="/hero.mp4" type="video/mp4" />
+        <source src={SOURCES[0]} type="video/mp4" />
+      </video>
+
+      {/* Vidéo B */}
+      <video
+        ref={videoB}
+        className={`absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-[1200ms] ease-austral ${
+          showA ? 'opacity-0' : 'opacity-100'
+        }`}
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+        onEnded={() => handleEnded('B')}
+      >
+        <source src={SOURCES[1]} type="video/mp4" />
       </video>
 
       <div

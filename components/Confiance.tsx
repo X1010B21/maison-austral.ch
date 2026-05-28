@@ -54,14 +54,12 @@ export function Confiance() {
           </p>
         </div>
 
-        {/* Promesses en grille verticale, façon Edmiston experience */}
-        <div className="grid divide-y divide-pure/15 border-y border-pure/15 md:grid-cols-2 md:divide-x md:divide-y-0">
+        {/* Promesses en grille verticale, sans filets — whitespace fait le travail */}
+        <div className="grid gap-y-16 md:grid-cols-2 md:gap-x-20 md:gap-y-24">
           {PROMISES.map((p, i) => (
             <article
               key={p.title}
-              className={`reveal flex flex-col gap-6 py-10 md:gap-8 md:py-14 ${
-                i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
-              } ${i >= 2 ? 'md:border-t md:border-pure/15' : ''}`}
+              className="reveal flex flex-col gap-6 md:gap-8"
             >
               <p className="font-serif text-2xl italic text-copper-light md:text-3xl">
                 {String(i + 1).padStart(2, '0')}
