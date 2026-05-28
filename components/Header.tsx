@@ -156,8 +156,8 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       aria-hidden={!open}
     >
       <div
-        className={`fixed inset-0 top-[72px] bg-sand-50 transition-opacity duration-500 ${
-          open ? 'opacity-100' : 'opacity-0'
+        className={`fixed inset-0 top-[72px] bg-sand-50 transition-all duration-300 ease-austral ${
+          open ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 -translate-y-2'
         }`}
       >
         <div className="container-austral flex h-[calc(100vh-72px)] flex-col justify-between py-10">
