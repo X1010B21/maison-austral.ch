@@ -42,7 +42,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className={`link-underline text-sm tracking-wider ${
+              className={`link-underline font-display text-[11px] uppercase tracking-[0.24em] ${
                 scrolled ? 'text-ink' : 'text-pure'
               }`}
             >
@@ -57,7 +57,7 @@ export function Header() {
           >
             <button
               type="button"
-              className={`link-underline text-sm tracking-wider ${
+              className={`link-underline font-display text-[11px] uppercase tracking-[0.24em] ${
                 scrolled ? 'text-ink' : 'text-pure'
               }`}
             >
@@ -112,7 +112,7 @@ export function Header() {
 
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className={`text-sm tracking-wider transition-colors ${
+            className={`font-display text-[11px] uppercase tracking-[0.24em] transition-colors ${
               scrolled
                 ? 'text-ink hover:text-copper'
                 : 'text-pure hover:text-sand-100'
@@ -195,7 +195,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                 key={link.href}
                 href={link.href}
                 onClick={onClose}
-                className="block py-3 font-serif text-3xl text-ink"
+                className="block py-3 font-display text-2xl uppercase tracking-tight text-ink"
               >
                 {link.label}
               </a>
@@ -204,7 +204,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             <button
               type="button"
               onClick={() => setDestOpen((v) => !v)}
-              className="flex w-full items-center justify-between py-3 font-serif text-3xl text-ink"
+              className="flex w-full items-center justify-between py-3 font-display text-2xl uppercase tracking-tight text-ink"
             >
               Découvrir
               <span
@@ -265,7 +265,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             <p className="eyebrow mb-3">Écrivez-nous</p>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="font-serif text-2xl text-ink"
+              className="font-display text-lg uppercase tracking-tight text-ink"
               onClick={onClose}
             >
               {CONTACT_EMAIL}

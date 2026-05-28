@@ -2,9 +2,9 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-ink text-pure"
+      className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden bg-ink text-pure"
     >
-      {/* Vidéo de fond — remplacer /public/hero.mp4 + /public/hero-poster.jpg lorsqu'ils seront fournis */}
+      {/* Vidéo de fond */}
       <video
         className="absolute inset-0 -z-10 h-full w-full object-cover"
         autoPlay
@@ -16,37 +16,53 @@ export function Hero() {
         <source src="/hero.mp4" type="video/mp4" />
       </video>
 
-      {/* Voile chaud pour lisibilité — moins agressif que l'ancien */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'linear-gradient(180deg, rgba(31,27,23,0.35) 0%, rgba(31,27,23,0.15) 40%, rgba(31,27,23,0.55) 100%)',
+            'linear-gradient(180deg, rgba(31,27,23,0.45) 0%, rgba(31,27,23,0.15) 40%, rgba(31,27,23,0.65) 100%)',
         }}
       />
 
-      <div className="container-austral relative">
-        <div className="max-w-3xl">
-          <h1 className="h-display hero-fade text-[clamp(2.75rem,7vw,5.75rem)] leading-[1.02] text-pure">
-            Vivre ailleurs,
-            <br />
-            <em className="not-italic text-sand-100">sans compromis.</em>
-          </h1>
+      {/* Bloc principal — bas-gauche style Edmiston */}
+      <div className="container-austral relative flex-1 flex flex-col justify-end pb-28 pt-40 md:pb-36 md:pt-48">
+        <p className="hero-fade text-[11px] uppercase tracking-[0.32em] text-pure/80 md:text-xs">
+          Maison Austral &nbsp;—&nbsp; Suisse · Ibérique
+        </p>
+
+        <h1 className="h-display hero-fade hero-delay-1 mt-8 text-[clamp(2.75rem,8.5vw,8rem)] text-pure max-w-5xl">
+          Vivre <em>ailleurs</em>,
+          <br />
+          <em>sans</em> compromis.
+        </h1>
+
+        <div className="hero-fade hero-delay-2 mt-12 flex flex-wrap items-center gap-x-10 gap-y-4">
+          <a href="#lifestyle" className="link-arrow text-pure">
+            <span>Découvrir</span>
+            <span aria-hidden className="arrow">→</span>
+          </a>
+          <a href="#contact" className="link-arrow text-pure/70 hover:text-pure">
+            <span>Nous écrire</span>
+            <span aria-hidden className="arrow">→</span>
+          </a>
         </div>
       </div>
 
-      {/* CTA discret en bas de hero */}
-      <a
-        href="#lifestyle"
-        aria-label="Découvrir"
-        className="hero-fade hero-delay-2 absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-pure md:bottom-14"
-      >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-pure/80">
-          Découvrir
-        </span>
-        <span aria-hidden className="h-12 w-px bg-pure/40" />
-      </a>
+      {/* Footer hero — méta info éditoriale */}
+      <div className="container-austral relative pb-8 md:pb-10">
+        <div className="hero-fade hero-delay-3 flex items-end justify-between border-t border-pure/15 pt-6">
+          <p className="text-[10px] uppercase tracking-[0.32em] text-pure/60">
+            Relocation privée
+          </p>
+          <p className="hidden text-[10px] uppercase tracking-[0.32em] text-pure/60 md:block">
+            Espagne &nbsp;·&nbsp; Portugal
+          </p>
+          <p className="text-[10px] uppercase tracking-[0.32em] text-pure/60">
+            MMXXVI
+          </p>
+        </div>
+      </div>
     </section>
   );
 }

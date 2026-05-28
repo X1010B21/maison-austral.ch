@@ -37,30 +37,39 @@ export function Confiance() {
       />
 
       <div className="container-austral relative">
-        <div className="mb-20 max-w-3xl md:mb-28">
-          <p className="eyebrow reveal text-copper-light">La maison</p>
-          <h2 className="h-display reveal reveal-delay-1 mt-6 text-[clamp(2rem,5vw,4.25rem)] leading-[1.05] text-pure">
-            Une relation tenue
-            <br />
-            <em className="not-italic text-sand-100">dans la durée.</em>
-          </h2>
-          <p className="reveal reveal-delay-2 mt-10 max-w-xl text-base leading-relaxed text-pure/70 md:text-lg">
+        {/* En-tête style Edmiston */}
+        <div className="mb-20 grid gap-10 md:mb-28 md:grid-cols-[1.1fr_1fr] md:items-end md:gap-16">
+          <div>
+            <p className="eyebrow reveal text-copper-light">La maison</p>
+            <h2 className="h-display reveal reveal-delay-1 mt-5 text-[clamp(2.25rem,6vw,5rem)] text-pure">
+              Une relation
+              <br />
+              <em>tenue</em> dans la durée
+            </h2>
+          </div>
+          <p className="reveal reveal-delay-2 max-w-md text-base leading-relaxed text-pure/70 md:text-[15px]">
             Maison Austral n'est pas une agence. C'est un cabinet de
             relocation, à taille restreinte, qui choisit ses clients autant
             que ses dossiers.
           </p>
         </div>
 
-        <div className="grid gap-x-12 gap-y-14 md:grid-cols-2 md:gap-y-20">
+        {/* Promesses en grille verticale, façon Edmiston experience */}
+        <div className="grid divide-y divide-pure/15 border-y border-pure/15 md:grid-cols-2 md:divide-x md:divide-y-0">
           {PROMISES.map((p, i) => (
-            <article key={p.title} className="reveal max-w-md">
-              <p className="font-serif text-3xl text-copper-light">
+            <article
+              key={p.title}
+              className={`reveal flex flex-col gap-6 py-10 md:gap-8 md:py-14 ${
+                i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
+              } ${i >= 2 ? 'md:border-t md:border-pure/15' : ''}`}
+            >
+              <p className="font-serif text-2xl italic text-copper-light md:text-3xl">
                 {String(i + 1).padStart(2, '0')}
               </p>
-              <h3 className="mt-5 font-serif text-2xl text-pure md:text-3xl">
+              <h3 className="h-display text-xl text-pure md:text-2xl lg:text-3xl">
                 {p.title}
               </h3>
-              <p className="mt-5 text-base leading-relaxed text-pure/65">
+              <p className="max-w-md text-sm leading-relaxed text-pure/65 md:text-base">
                 {p.body}
               </p>
             </article>

@@ -33,11 +33,29 @@
   }
 
   .eyebrow {
-    @apply text-xs uppercase tracking-widest text-copper font-medium;
+    @apply text-xs uppercase tracking-[0.22em] text-copper font-medium;
   }
 
+  /* Titre principal "Edmiston-mix" — sans-serif caps avec italiques serif intercalés */
   .h-display {
-    @apply font-serif font-light leading-[1.05] tracking-tightest;
+    @apply font-display font-medium uppercase leading-[1.02] tracking-[-0.015em];
+  }
+  .h-display em {
+    @apply font-serif font-light italic normal-case tracking-normal;
+    /* L'italique serif est légèrement plus grand pour compenser visuellement les caps */
+    font-size: 1.08em;
+    line-height: 1;
+  }
+
+  /* Lien éditorial avec flèche, signature Edmiston */
+  .link-arrow {
+    @apply inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium;
+  }
+  .link-arrow .arrow {
+    @apply inline-block transition-transform duration-500 ease-austral;
+  }
+  .link-arrow:hover .arrow {
+    transform: translateX(0.25rem);
   }
 
   .link-underline {

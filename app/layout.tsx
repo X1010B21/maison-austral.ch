@@ -1,20 +1,31 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Inter } from 'next/font/google';
+import { Cormorant_Garamond, Inter, Inter_Tight } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
+// Italique éditorial pour les accents dans les titres (signature Edmiston)
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
   variable: '--font-cormorant',
   display: 'swap',
 });
 
+// Body
 const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   variable: '--font-inter',
+  display: 'swap',
+});
+
+// Display tight pour les caps en gros (signature Edmiston)
+const interTight = Inter_Tight({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -38,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${cormorant.variable} ${inter.variable}`}>
+    <html lang="fr" className={`${cormorant.variable} ${inter.variable} ${interTight.variable}`}>
       <body>
         <Header />
         <main>{children}</main>

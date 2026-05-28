@@ -23,8 +23,12 @@ const config: Config = {
         },
       },
       fontFamily: {
+        // Italique serif éditorial — pour les accents dans les titres style Edmiston
         serif: ['var(--font-cormorant)', 'Georgia', 'serif'],
+        // Sans-serif body
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        // Display caps — typographie principale des titres
+        display: ['var(--font-display)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         tightest: '-0.04em',
