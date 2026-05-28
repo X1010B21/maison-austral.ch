@@ -5,18 +5,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#0F1B2D',
+        // Warm near-black (espresso) — remplace le bleu froid
+        ink: '#1F1B17',
         pure: '#FFFFFF',
+        // Off-white / sable / pierre — palette Aman/Soho House
         sand: {
-          50: '#FBF8F2',
-          100: '#F5EFE3',
-          200: '#EDE3CE',
-          300: '#E0D2B0',
+          50: '#FAF6EE',   // blanc cassé chaud (bg principal)
+          100: '#F0E9DA',  // sable clair
+          200: '#E5D6BC',  // sable
+          300: '#C9B89F',  // beige pierre
         },
+        // Bronze subtil (au lieu du cuivre orange)
         copper: {
-          DEFAULT: '#B87333',
-          light: '#C8895A',
-          dark: '#8F571E',
+          DEFAULT: '#9A6D3F',
+          light: '#B68957',
+          dark: '#7A5630',
         },
       },
       fontFamily: {

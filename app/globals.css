@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    --ink: #0F1B2D;
-    --sand-50: #FBF8F2;
-    --sand-100: #F5EFE3;
-    --copper: #B87333;
+    --ink: #1F1B17;
+    --sand-50: #FAF6EE;
+    --sand-100: #F0E9DA;
+    --copper: #9A6D3F;
   }
 
   html {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Logo } from './Logo';
-import { CONTACT_EMAIL, DESTINATIONS, NAV_LINKS } from '@/lib/content';
+import { CONTACT_EMAIL, DESTINATIONS, NAV_LINKS, destinationMailto } from '@/lib/content';
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -28,9 +28,9 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 ease-austral ${
         open
-          ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)] transition-none'
+          ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(31,27,23,0.06)] transition-none'
           : scrolled
-            ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)] transition-all duration-500'
+            ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(31,27,23,0.06)] transition-all duration-500'
             : 'bg-transparent transition-all duration-500'
       }`}
     >
@@ -78,7 +78,7 @@ export function Header() {
                       {DESTINATIONS.espagne.map((d) => (
                         <li key={d.name}>
                           <a
-                            href={`/#destinations`}
+                            href={destinationMailto(d.name)}
                             className="block text-sm text-ink hover:text-copper transition-colors"
                           >
                             {d.name}
@@ -96,7 +96,7 @@ export function Header() {
                       {DESTINATIONS.portugal.map((d) => (
                         <li key={d.name}>
                           <a
-                            href={`/#destinations`}
+                            href={destinationMailto(d.name)}
                             className="block text-sm text-ink hover:text-copper transition-colors"
                           >
                             {d.name}
@@ -115,10 +115,10 @@ export function Header() {
             className={`text-sm tracking-wider transition-colors ${
               scrolled
                 ? 'text-ink hover:text-copper'
-                : 'text-pure hover:text-sand-200'
+                : 'text-pure hover:text-sand-100'
             }`}
           >
-            Nous contacter
+            Nous écrire
           </a>
         </nav>
 
@@ -230,9 +230,9 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                       {DESTINATIONS.espagne.map((d) => (
                         <li key={d.name}>
                           <a
-                            href="/#destinations"
+                            href={destinationMailto(d.name)}
                             onClick={onClose}
-                            className="text-sm text-ink/80"
+                            className="text-sm text-ink/80 hover:text-copper transition-colors"
                           >
                             {d.name}
                           </a>
@@ -246,9 +246,9 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                       {DESTINATIONS.portugal.map((d) => (
                         <li key={d.name}>
                           <a
-                            href="/#destinations"
+                            href={destinationMailto(d.name)}
                             onClick={onClose}
-                            className="text-sm text-ink/80"
+                            className="text-sm text-ink/80 hover:text-copper transition-colors"
                           >
                             {d.name}
                           </a>
