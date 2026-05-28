@@ -26,9 +26,11 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-austral ${
-        scrolled || open
-          ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)]'
-          : 'bg-transparent'
+        open
+          ? 'bg-sand-50 shadow-[0_1px_0_rgba(15,27,45,0.06)]'
+          : scrolled
+            ? 'bg-sand-50/95 backdrop-blur-md shadow-[0_1px_0_rgba(15,27,45,0.06)]'
+            : 'bg-transparent'
       }`}
     >
       <div className="container-austral flex items-center justify-between py-5 md:py-7">
