@@ -155,8 +155,19 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       }`}
       aria-hidden={!open}
     >
+      {/* Background layer — appears instantly when opening, fades out when closing */}
       <div
-        className={`fixed inset-0 top-[72px] bg-sand-50 transition-all duration-300 ease-austral ${
+        className={`fixed inset-0 top-[72px] bg-sand-50 transition-opacity ease-austral ${
+          open
+            ? 'opacity-100 duration-0'
+            : 'pointer-events-none opacity-0 duration-300'
+        }`}
+        aria-hidden
+      />
+
+      {/* Content layer — slides + fades in over the opaque bg */}
+      <div
+        className={`fixed inset-0 top-[72px] transition-all duration-300 ease-austral ${
           open ? 'opacity-100 translate-y-0' : 'pointer-events-none opacity-0 -translate-y-2'
         }`}
       >
